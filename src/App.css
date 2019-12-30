@@ -1,38 +1,54 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.Game {
+    border: inset #CCCCCC 3px;
+    margin: auto;
+    padding: 20px;
+    width: 1200px;
+    display: inline-flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Simulation {
+    border: solid black 1px;
+    width: 100%;
+    padding: 5px 10px 10px;
+    margin: auto auto auto 10px;
+    text-align: left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Creator {
+    border: solid black 1px;
+    display: block;
+    width: 500px;
+    padding: 10px;
+    margin: auto;
 }
 
-.App-link {
-  color: #61dafb;
+form {
+    /* Center the form on the page */
+    margin:auto;
+    width: 100%;
+    display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+label {
+    /* Uniform size & alignment */
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+}
+
+input {
+    display: inline-block;
+    width: 77%;
+}
+
+.Slider {
+    display: flex;
+}
+.Slider >input {
+    width: 200px;
 }

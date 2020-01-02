@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function Slider(props) {
+export default function StatSlider(props) {
     return (
         <div className="Slider">
             <label>{props.attribute.toUpperCase()}</label>

@@ -32,10 +32,7 @@ class Creator extends Component {
         e.preventDefault();
 
         const value = parseInt(e.target.value);
-
-
-
-        // accrue or remove free points
+        
         this.setState((state) => {
             if (state.character[key] > value) {
                 return (merge(state, {

@@ -1,30 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Ticker from "./Ticker";
+import { GameContext } from "../context/GameContext"
 
-function Simulation(props) {
-    let content;
-    if (props.character.name != null) {
-        content = <p>{props.character.name} enters the Lair. <br/>
-            {props.character.name} walks up to a Gru. <br/>
-            {props.character.name} was eaten by a Gru. </p>;
-    } else {
-        content = <p>Press Start!</p>
-    }
+function Simulation() {
+    const character = useContext(GameContext)
+    const content = ""
 
-    const adventurer = createAdventurer(props.character);
     return (
         <div className="simulation">
             {content}
-            <Ticker adventurer={adventurer}
+            <Ticker adventurer={character}
                     intervalMs='10000'/>
-        </div>);
-}
-
-function createAdventurer(character) {
-    console.log("CREATING");
-    console.log(character);
-    let adventurer = {...character};
-    return (adventurer);
+        </div>
+    )
 }
 
 export default Simulation

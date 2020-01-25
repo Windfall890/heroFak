@@ -1,23 +1,22 @@
 import Creator from "./Creator";
 import React, { Component } from "react";
 import Simulation from "./Simulation";
+import { initialState, GameContext } from "../context/GameContext"
 
 class Game extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = { character: {} }
+    state = {
+        ...initialState,
+        updateValue: obj => this.setState({...this.state, ...obj})
     }
-
-    handleStart = (character) => {
-        this.setState({ character })
-    };
 
     render() {
         return (
-            <div className="game">
-                <Creator handleStart={this.handleStart}/>
-                <Simulation character={this.state.character}/>
-            </div>
+            <GameContext.Provider value={this.state}>
+                <div className="game">
+                    <Creator/>
+                    <Simulation/>
+                </div>
+            </GameContext.Provider>
         );
     }
 }

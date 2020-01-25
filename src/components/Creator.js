@@ -1,36 +1,21 @@
 import React, { Component } from "react";
 import StatSlider from "./Slider";
 import names from "../names"
+import { GameContext } from "../context/GameContext"
+import characterState from "../context/character"
 
 class Creator extends Component {
-    getInitialState = () => ({
-        character: {
-            name: "",
-            coreStats: {
-                str: 0,
-                dex: 0,
-                con: 0,
-                int: 0,
-                wis: 0,
-                cha: 0
-            }
-        },
-        freePoints: 0
-    })
+    static contextType = GameContext
 
-    state = {
-        ...this.getInitialState()
-    }
-
-    resetState = () => {
-        this.setState(this.getInitialState());
+    resetCharacter = () => {
+        this.context.updateValue(characterState)
     };
 
     componentDidMount() {
         this.roll();
     }
 
-    coreStats = Object.keys(this.state.character.coreStats).map(key => key)
+    coreStats = Object.keys(this.context.character.coreStats).map(key => key)
     statMax = 18
     statMin = 1
 
@@ -38,30 +23,26 @@ class Creator extends Component {
         e.preventDefault()
 
         const value = parseInt(e.target.value)
-        let { character, freePoints } = this.state
+        let { character } = this.context
         character.coreStats[ key ] = value
 
         if (character.coreStats[ key ] > value) {
-            freePoints++
-        } else if (this.state.freePoints <= value && this.state.freePoints > 0) {
-            freePoints--
+            character.freePoints++
+        } else if (this.context.character.freePoints <= value && this.context.character.freePoints > 0) {
+            character.freePoints--
         }
 
-        this.setState({
-            ...this.state,
-            ...character,
-            ...freePoints
-        })
+        this.context.updateValue(character)
     }
 
     onChange = (key, e) => {
         e.preventDefault()
 
         const value = parseInt(e.target.value)
-        let { character } = this.state
+        let { character } = this.context
         character.coreStats[ key ] = value
 
-        this.setState({ ...this.state, ...character })
+        this.context.updateValue(character)
     }
 
     render() {
@@ -72,15 +53,15 @@ class Creator extends Component {
                     <div className="creator__text-fields">
                         <label>Name:</label>
                         <input type="text"
-                               value={this.state.character.name}
+                               value={this.context.character.name}
                                onChange={(e) => this.onChange("name", e)}/>
-                        <div>Points: {this.state.freePoints}</div>
+                        <div>Points: {this.context.freePoints}</div>
                     </div>
                     {this.renderSliders()}
                     <div>Total: {this.statTotal()} </div>
                 </form>
                 <button onClick={this.roll}>Roll!</button>
-                <button onClick={() => this.props.handleStart(this.state.character)}>Start!</button>
+                <button onClick={() => console.log("started")}>Start!</button>
             </div>
         )
     }
@@ -98,7 +79,7 @@ class Creator extends Component {
         return this.coreStats.map((stat, index) =>
             <StatSlider
                 attribute={stat}
-                value={this.state.character.coreStats[ stat ]}
+                value={this.context.character.coreStats[ stat ]}
                 statMin={this.statMin}
                 statMax={this.statMax}
                 key={index}
@@ -107,7 +88,7 @@ class Creator extends Component {
     }
 
     statTotal = () =>
-        this.coreStats.map(key => this.state.character.coreStats[key]).reduce((acc, value) => {
+        this.coreStats.map(key => this.context.character.coreStats[key]).reduce((acc, value) => {
             return acc + value
         }, 0)
 
@@ -123,13 +104,10 @@ class Creator extends Component {
         this.coreStats.map(value => {
             character.coreStats[ value ] = this.getRandomInt(rollMin, rollMax)
         })
+        character.freePoints = 0
 
-        this.resetState()
-        this.setState(() => ({
-                character: character,
-                freePoints: 0
-            })
-        )
+        this.resetCharacter()
+        this.context.updateValue({ character })
     }
 }
 

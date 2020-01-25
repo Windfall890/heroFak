@@ -1,7 +1,7 @@
 import React from "react";
 import Ticker from "./Ticker";
 
-export default function Simulation(props) {
+function Simulation(props) {
     let content;
     if (props.character.name != null) {
         content = <p>{props.character.name} enters the Lair. <br/>
@@ -12,7 +12,6 @@ export default function Simulation(props) {
     }
 
     const adventurer = createAdventurer(props.character);
-    console.log(adventurer);
     return (
         <div className="simulation">
             {content}
@@ -27,3 +26,5 @@ function createAdventurer(character) {
     let adventurer = {...character};
     return (adventurer);
 }
+
+export default Simulation

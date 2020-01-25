@@ -9,7 +9,6 @@ class Game extends Component {
     }
 
     handleStart = (character) => {
-        console.log(character)
         this.setState({ character })
     };
 

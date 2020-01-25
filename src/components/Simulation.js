@@ -14,7 +14,7 @@ export default function Simulation(props) {
     const adventurer = createAdventurer(props.character);
     console.log(adventurer);
     return (
-        <div className="Simulation">
+        <div className="simulation">
             {content}
             <Ticker adventurer={adventurer}
                     intervalMs='10000'/>

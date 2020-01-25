@@ -1,0 +1,19 @@
+.creator {
+  border: solid black 1px;
+  display: block;
+  width: 500px;
+  padding: 10px;
+  margin: auto;
+
+  &__character-sheet {
+    /* Center the form on the page */
+    margin: auto;
+    width: 100%;
+    display: block;
+  }
+
+  &__text-fields {
+    display: flex;
+    flex-direction: column;
+  }
+}

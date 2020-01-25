@@ -1,0 +1,25 @@
+.slider {
+  display: flex;
+
+  &__increment-stat-button {
+    color: green;
+    transform: rotate(-90deg);
+  }
+
+  &__decrement-stat-button {
+    color: red;
+    transform: rotate(-90deg);
+  }
+
+  &__buttons {
+    width: 50px;
+  }
+
+  &__label {
+    width: 50px;
+  }
+
+  > input {
+    width: 200px;
+  }
+}

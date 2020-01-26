@@ -3,13 +3,14 @@ import Ticker from "./Ticker";
 import { GameContext } from "../context/GameContext"
 
 function Simulation() {
-    const character = useContext(GameContext)
-    const content = ""
+    const context = useContext(GameContext)
+    let content = context.character.name.isEmpty ?
+        "" : <div>{context.character.name} has started a quest.</div>
 
     return (
         <div className="simulation">
             {content}
-            <Ticker adventurer={character}
+            <Ticker adventurer={context.character}
                     intervalMs='10000'/>
         </div>
     )

@@ -28,7 +28,7 @@ class Creator extends Component {
         if (character.coreStats[ key ] > value) {
             character.freePoints++
             character.coreStats[ key ] = value
-        } else if (this.context.character.freePoints <= value && this.context.character.freePoints > 0) {
+        } else if (character.freePoints <= value && character.freePoints > 0) {
             character.freePoints--
             character.coreStats[ key ] = value
         }

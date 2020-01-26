@@ -24,12 +24,13 @@ class Creator extends Component {
 
         const value = parseInt(e.target.value)
         let { character } = this.context
-        character.coreStats[ key ] = value
 
         if (character.coreStats[ key ] > value) {
             character.freePoints++
+            character.coreStats[ key ] = value
         } else if (this.context.character.freePoints <= value && this.context.character.freePoints > 0) {
             character.freePoints--
+            character.coreStats[ key ] = value
         }
 
         this.context.updateValue(character)
@@ -55,7 +56,7 @@ class Creator extends Component {
                         <input type="text"
                                value={this.context.character.name}
                                onChange={(e) => this.onChange("name", e)}/>
-                        <div>Points: {this.context.freePoints}</div>
+                        <div>Points: {this.context.character.freePoints}</div>
                     </div>
                     {this.renderSliders()}
                     <div>Total: {this.statTotal()} </div>

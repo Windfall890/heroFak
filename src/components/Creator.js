@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import StatSlider from "./Slider";
-import names from "../names"
+import { names, getRandomFirstName, getRandomSurname } from "../names"
 import { GameContext } from "../context/GameContext"
 import characterState from "../context/character"
 
@@ -89,12 +89,12 @@ class Creator extends Component {
     }
 
     statTotal = () =>
-        this.coreStats.map(key => this.context.character.coreStats[key]).reduce((acc, value) => {
+        this.coreStats.map(key => this.context.character.coreStats[ key ]).reduce((acc, value) => {
             return acc + value
         }, 0)
 
     startSimulation = () => {
-        this.context.updateValue({ isSimulationRunning: true})
+        this.context.updateValue({ isSimulationRunning: true })
     }
 
     roll = () => {
@@ -102,7 +102,6 @@ class Creator extends Component {
         const rollMax = this.statMax
 
         const character = {
-            name: this.getRandomName(),
             coreStats: {}
         }
 
@@ -110,6 +109,7 @@ class Creator extends Component {
             character.coreStats[ value ] = this.getRandomInt(rollMin, rollMax)
         })
         character.freePoints = 0
+        character.name = `${getRandomFirstName()} the ${getRandomSurname(character.coreStats)}`
 
         this.resetCharacter()
         this.context.updateValue({ character })

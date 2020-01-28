@@ -62,7 +62,7 @@ class Creator extends Component {
                     <div>Total: {this.statTotal()} </div>
                 </form>
                 <button onClick={this.roll}>Roll!</button>
-                <button onClick={() => console.log("started")}>Start!</button>
+                <button onClick={this.startSimulation}>Start!</button>
             </div>
         )
     }
@@ -92,6 +92,10 @@ class Creator extends Component {
         this.coreStats.map(key => this.context.character.coreStats[key]).reduce((acc, value) => {
             return acc + value
         }, 0)
+
+    startSimulation = () => {
+        this.context.updateValue({ isSimulationRunning: true})
+    }
 
     roll = () => {
         const rollMin = 7

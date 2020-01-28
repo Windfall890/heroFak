@@ -3,6 +3,7 @@ import characterState from './character'
 
 const initialState = {
     character: characterState,
+    isSimulationRunning: false,
     updateValue: obj => {}
 }
 

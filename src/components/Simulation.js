@@ -1,19 +1,43 @@
-import React, { useContext } from "react";
-import Ticker from "./Ticker";
+import React, { Component } from "react";
 import { GameContext } from "../context/GameContext"
+import Engine from "./Engine"
 
-function Simulation() {
-    const { character } = useContext(GameContext)
-    let content = character.name.isEmpty ?
-        "" : <div>{character.name} has started a quest.</div>
+class Simulation extends Component {
+    static contextType = GameContext
 
-    return (
-        <div className="simulation">
-            {content}
-            <Ticker adventurer={character}
-                    intervalMs='10000'/>
-        </div>
-    )
+    state = {
+        ticks: 0
+    }
+
+    tick() {
+        this.setState(prev => ({
+            ticks: prev.ticks + 1
+        }));
+    }
+
+    intervalHandler = () => this.tick()
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.isSimulationRunning !== this.props.isSimulationRunning) {
+            this.props.isSimulationRunning ? this.startSimulation() : this.endSimulation()
+        }
+    }
+
+    startSimulation = () => {
+        this.interval = setInterval(this.intervalHandler, this.props.intervalMs)
+    }
+
+    endSimulation = () => {
+        clearInterval(this.interval);
+    }
+
+    render() {
+        return (
+            <div className="simulation">
+                {this.state.ticks}
+            </div>
+        )
+    }
 }
 
 export default Simulation

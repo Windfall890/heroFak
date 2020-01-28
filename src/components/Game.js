@@ -14,7 +14,8 @@ class Game extends Component {
             <GameContext.Provider value={this.state}>
                 <div className="game">
                     <Creator/>
-                    <Simulation/>
+                    <Simulation intervalMs="5000"
+                                isSimulationRunning={this.state.isSimulationRunning} />
                 </div>
             </GameContext.Provider>
         );
